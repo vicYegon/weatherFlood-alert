@@ -25,3 +25,27 @@ class FloodAlert(models.Model):
 
     def __str__(self):
         return f"Flood Alert: {self.location} - {self.alert_level}"
+    
+    
+class weatherAlert(models.Model):
+
+    SEVERITY_CHOICES = [
+        ('Low','Low'),
+        ('Moderate', 'Moderate'),
+        ('High','High'),
+        ('Severe','Severe'),
+        ('extreme','extreme'),
+    ]
+
+    location = models.CharField(max_length=255)
+    latitude = models.FloatField(null=True, blank=True)
+    longitude = models.FloatField(null=True, blank=True)
+    temperature = models.FloatField()
+    humidity = models.FloatField()
+    alert_level = models.CharField(max_length=10, choices=SEVERITY_CHOICES)
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.location} - {self.alert_level}"
